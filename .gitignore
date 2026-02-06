@@ -1,0 +1,8 @@
+# macOS creates these hidden files in every folder — we don't need them in our project
+.DS_Store
+
+# If you ever use VS Code, it creates this folder for its settings
+.vscode/
+
+# Thumbnail cache files
+Thumbs.db

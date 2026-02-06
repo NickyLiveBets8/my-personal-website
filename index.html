@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        META TAGS: These give the browser basic info about your page.
+        Think of them like the label on the outside of a package —
+        they tell the browser what's inside and how to handle it.
+    -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- This is the title that shows up on the browser tab -->
+    <title>Nick Lee</title>
+
+    <!--
+        LINKING THE CSS FILE: This connects our HTML (skeleton)
+        to our CSS (the styling/paint job). Without this line,
+        the page would just be plain black text on a white background.
+    -->
+    <link rel="stylesheet" href="css/style.css">
+
+    <!--
+        GOOGLE FONTS: We're pulling in two fonts from the internet.
+        "Press Start 2P" is the 8-bit pixel font for that retro gaming look.
+        "Share Tech Mono" is a techy monospace font (like what hackers use in movies).
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!--
+        ============================================
+        SCANLINE OVERLAY
+        ============================================
+        This is an invisible layer that sits on top of EVERYTHING.
+        It creates those subtle horizontal lines you see on old CRT
+        monitors and in movies like The Matrix. It's purely decorative —
+        it doesn't hold any content, just vibes.
+    -->
+    <div class="scanlines"></div>
+
+    <!--
+        ============================================
+        HEADER SECTION
+        ============================================
+        The top of your site. This is the first thing visitors see.
+        It has your name (like a big neon sign) and a short tagline.
+    -->
+    <header class="header">
+        <div class="header-content">
+            <!-- Your name, styled like a glowing Tron title -->
+            <h1 class="glitch-text" data-text="NICK LEE">NICK LEE</h1>
+
+            <!-- A short tagline underneath your name -->
+            <p class="tagline">// welcome to the grid</p>
+        </div>
+    </header>
+
+    <!--
+        ============================================
+        ABOUT SECTION
+        ============================================
+        A quick intro about you. Think of it as the "hello, here's
+        who I am" part of the site. Kept short and punchy.
+    -->
+    <section class="about">
+        <h2 class="section-title">&gt; ABOUT_ME</h2>
+        <p class="about-text">
+            Welcome to my corner of the digital world. This site is a creative
+            playground — a space to experiment, share, and have fun. Take a look
+            around and enjoy the view.
+        </p>
+    </section>
+
+    <!--
+        ============================================
+        PHOTO GALLERY SECTION
+        ============================================
+        This is the main attraction! A grid of photos with that
+        neon Tron-style border. Each photo is wrapped in a container
+        (gallery-item) so we can style and animate them individually.
+
+        RIGHT NOW these use placeholder images. We'll swap them
+        for your real photos later!
+    -->
+    <section class="gallery-section">
+        <h2 class="section-title">&gt; PHOTO_GALLERY</h2>
+
+        <div class="gallery-grid">
+            <!--
+                Each "gallery-item" is one photo card in the grid.
+                The "src" is where the image file lives.
+                The "alt" is a text description (for accessibility —
+                screen readers read this to visually impaired users).
+                The "onclick" tells the browser: "when someone clicks
+                this image, run the openLightbox function to zoom it in."
+            -->
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/tron1/400/300"
+                     alt="Gallery photo 1"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/tron2/400/300"
+                     alt="Gallery photo 2"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/tron3/400/300"
+                     alt="Gallery photo 3"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/matrix1/400/300"
+                     alt="Gallery photo 4"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/matrix2/400/300"
+                     alt="Gallery photo 5"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+
+            <div class="gallery-item">
+                <img src="https://picsum.photos/seed/matrix3/400/300"
+                     alt="Gallery photo 6"
+                     onclick="openLightbox(this.src, this.alt)">
+            </div>
+        </div>
+    </section>
+
+    <!--
+        ============================================
+        LIGHTBOX (The Zoom-In Viewer)
+        ============================================
+        This is hidden by default. When you click a photo, JavaScript
+        makes this appear — it darkens the background and shows the
+        photo full-size. Think of it like a pop-up photo viewer.
+
+        Clicking the "X" or anywhere on the dark background closes it.
+    -->
+    <div class="lightbox" id="lightbox" onclick="closeLightbox()">
+        <span class="lightbox-close">&times;</span>
+        <img class="lightbox-img" id="lightbox-img" alt="">
+    </div>
+
+    <!--
+        ============================================
+        FOOTER
+        ============================================
+        The bottom of the page. Just a simple copyright line
+        with the current year.
+    -->
+    <footer class="footer">
+        <p>&copy; 2026 NICK LEE // ALL RIGHTS RESERVED</p>
+    </footer>
+
+    <!--
+        ============================================
+        JAVASCRIPT
+        ============================================
+        This is the tiny bit of code that makes the lightbox work.
+        It's like the "brain" — HTML is the skeleton, CSS is the
+        outfit, and JavaScript is the behavior/actions.
+    -->
+    <script>
+        /*
+         * openLightbox — This runs when you CLICK a photo.
+         * It takes the photo's source (URL) and description,
+         * puts them into the big lightbox viewer, and makes
+         * the lightbox visible by adding the "active" class.
+         */
+        function openLightbox(src, alt) {
+            // Grab the lightbox container and the image inside it
+            var lightbox = document.getElementById('lightbox');
+            var lightboxImg = document.getElementById('lightbox-img');
+
+            // Set the big image to match whichever photo was clicked
+            lightboxImg.src = src;
+            lightboxImg.alt = alt;
+
+            // Make the lightbox visible (CSS will handle the animation)
+            lightbox.classList.add('active');
+        }
+
+        /*
+         * closeLightbox — This runs when you click the "X"
+         * or click anywhere on the dark background.
+         * It hides the lightbox by removing the "active" class.
+         */
+        function closeLightbox() {
+            var lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+        }
+    </script>
+
+</body>
+</html>
